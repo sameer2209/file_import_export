@@ -11,7 +11,7 @@ class InventoryController < ApplicationController
 			
 			#redirect_to root_path, notice: "Inventory imported."
 			format.csv { send_data @inventories.to_csv }
-			format.xls { send_data @inventories.to_csv(col_sep: "\t") }
+			format.xls { send_data @inventories.to_csv(["serial_number", "volume"],col_sep: "\t") }
 		end
 	end
 

@@ -60,11 +60,11 @@ class Inventory < ApplicationRecord
 		end
 	end
 
-	def self.to_csv(options = {})
+	def self.to_csv(attributes = column_names, options = {})
 		CSV.generate(options) do |csv|
-			csv << column_names
+			csv.add_row attributes
     		all.each do |inventory|
-      			csv << inventory.attributes.values_at(*column_names)
+      			csv.add_row inventory.attributes.values_at(*attributes)
     		end
 		end
 	end
