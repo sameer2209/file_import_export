@@ -36,6 +36,7 @@ class Inventory < ApplicationRecord
 			spreadsheet = open_spreadsheet(file)
 			header = spreadsheet.row(1)
 			header.push("volume")
+			import_errors = []
 			(2..spreadsheet.last_row).each do |i|
 				r = spreadsheet.row(i)
 				volume = r[7]*r[8]*r[9]
@@ -47,8 +48,12 @@ class Inventory < ApplicationRecord
 				#inventory.volume = row["Length"]*row["Breadth"]*row["Height"]
 				inventory.attributes = row.to_hash
 				inventory.save
+				row_error = {i => inventory.errors.full_messages}
+				import_errors.push(row_error)
 			end
 		end
+		puts import_errors
+		return import_errors
 	end
 
 	def self.open_spreadsheet(file)

@@ -1,0 +1,7 @@
+<h3>The following errors prevented from upload:</h3>
+<% @import_errors.each do |row_error| %>
+<% puts row_error.values.inspect %>
+<% keys = row_error.keys %>
+<%= "In row number "+ keys[0].to_s + (row_error.values)[0].to_s%>
+<br/>
+<%end%>
